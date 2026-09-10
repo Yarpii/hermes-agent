@@ -133,8 +133,8 @@ $ProofRoot   = Join-Path $WorkRoot "proof"
 $AhkDir      = Join-Path $WorkRoot "ahk"
 $AssetsDir   = Join-Path $PSScriptRoot "e2e-assets"
 
-$RepoUrlHttps = "https://github.com/NousResearch/hermes-agent.git"
-$RepoUrlSsh   = "git@github.com:NousResearch/hermes-agent.git"
+$RepoUrlHttps = "https://github.com/Yarpii/hermes-agent.git"
+$RepoUrlSsh   = "git@github.com:Yarpii/hermes-agent.git"
 
 function Write-Step([string]$Message) {
     Write-Host ""
