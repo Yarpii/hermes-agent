@@ -272,11 +272,13 @@ _nb_install_bundled_node() {
 
     local index_url="https://nodejs.org/dist/latest-v${HERMES_NODE_TARGET_MAJOR}.x/"
     local tarball
-    tarball=$(curl -fsSL "$index_url" \
+    # Bounded like the Windows heal path (_stage_windows_node_zip): a stalled
+    # connection must fail loudly instead of hanging the caller's whole budget.
+    tarball=$(curl -fsSL --connect-timeout 15 --max-time 60 "$index_url" \
         | grep -oE "node-v${HERMES_NODE_TARGET_MAJOR}\.[0-9]+\.[0-9]+-${node_os}-${node_arch}\.tar\.xz" \
         | head -1)
     if [ -z "$tarball" ]; then
-        tarball=$(curl -fsSL "$index_url" \
+        tarball=$(curl -fsSL --connect-timeout 15 --max-time 60 "$index_url" \
             | grep -oE "node-v${HERMES_NODE_TARGET_MAJOR}\.[0-9]+\.[0-9]+-${node_os}-${node_arch}\.tar\.gz" \
             | head -1)
     fi
@@ -288,7 +290,7 @@ _nb_install_bundled_node() {
     local tmp
     tmp=$(mktemp -d)
     _nb_log "Downloading $tarball..."
-    curl -fsSL "${index_url}${tarball}" -o "$tmp/$tarball" || {
+    curl -fsSL --connect-timeout 15 --max-time 300 "${index_url}${tarball}" -o "$tmp/$tarball" || {
         _nb_warn "Download failed"; rm -rf "$tmp"; return 1
     }
 

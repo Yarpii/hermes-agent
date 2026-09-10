@@ -594,7 +594,14 @@ def _heal_managed_node_windows(home: Path | None = None) -> bool | None:
 
 
 def _run_node_bootstrap(func: str, *, timeout: int, **extra_env: str) -> bool:
-    """Source ``scripts/lib/node-bootstrap.sh`` and run shell function *func*."""
+    """Source ``scripts/lib/node-bootstrap.sh`` and run shell function *func*.
+
+    stderr streams through to the user instead of being captured: the script
+    announces each download stage, and a slow/stalled fetch must be visible
+    (and fail loudly at its own --max-time) rather than look like a silent
+    hang for the caller's whole timeout budget. Only the boolean result is
+    consumed, so nothing is captured.
+    """
     if not _NODE_BOOTSTRAP_SCRIPT.is_file():
         return False
     import subprocess
@@ -602,7 +609,8 @@ def _run_node_bootstrap(func: str, *, timeout: int, **extra_env: str) -> bool:
         result = subprocess.run(
             ["bash", "-c", f'source "{_NODE_BOOTSTRAP_SCRIPT}" && {func}'],
             env={**os.environ, "HERMES_HOME": str(get_hermes_home()), **extra_env},
-            capture_output=True, timeout=timeout, check=False,
+            stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=None,
+            timeout=timeout, check=False,
         )
     except (OSError, subprocess.SubprocessError):
         return False

@@ -210,7 +210,8 @@ def _provision_managed_npm(npm_range: str | None, *, quiet: bool = False) -> str
     if not quiet:
         print(
             "→ Provisioning a Hermes-managed Node.js runtime "
-            "(the resolved npm belongs to your system and is left alone)…",
+            "(the resolved npm belongs to your system and is left alone); "
+            "this downloads Node.js once from nodejs.org…",
             flush=True,
         )
     managed_npm = bootstrap_hermes_managed_node()
