@@ -13,6 +13,13 @@
   <a href="README.ur-pk.md"><img src="https://img.shields.io/badge/Lang-اردو-green?style=for-the-badge" alt="اردو"></a>
 </p>
 
+> [!IMPORTANT]
+> **这是个人 fork，不是官方项目。** 本仓库是 [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) 的独立维护分支，包含自定义插件和本地补丁。上游更新**不会**自动合并——代码在此手动维护，此副本中的 `hermes update` 检查的是**本 fork**，而非上游，因此不会有东西在你不知情的情况下变动。
+>
+> - 想找官方项目？请前往 [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)——文档见 [hermes-agent.nousresearch.com](https://hermes-agent.nousresearch.com/)，Discord 见 [discord.gg/NousResearch](https://discord.gg/NousResearch)。
+> - 下方 Quick Install 命令安装的是**官方**上游版本（从官方站点下载），不是本 fork。
+> - 本 fork 的 bug 请在这里开 issue；官方项目的 bug 请到上游报告。
+
 **由 [Nous Research](https://nousresearch.com) 构建的自进化 AI 代理。** 它是唯一内置学习闭环的智能代理——从经验中创建技能，在使用中改进技能，主动持久化知识，搜索过往对话，并在跨会话中逐步构建对你的深度理解。可以在 $5 的 VPS 上运行，也可以在 GPU 集群上运行，或者使用几乎零成本的 Serverless 基础设施。它不绑定你的笔记本——你可以在 Telegram 上与它对话，而它在云端 VM 上工作。
 
 支持任意模型——[Nous Portal](https://portal.nousresearch.com)、[OpenRouter](https://openrouter.ai)（200+ 模型）、[NVIDIA NIM](https://build.nvidia.com)（Nemotron）、[小米 MiMo](https://platform.xiaomimimo.com)、[z.ai/GLM](https://z.ai)、[Kimi/Moonshot](https://platform.moonshot.ai)、[MiniMax](https://www.minimax.io)、[Hugging Face](https://huggingface.co)、OpenAI，或自定义端点。使用 `hermes model` 即可切换——无需改代码，无锁定。
